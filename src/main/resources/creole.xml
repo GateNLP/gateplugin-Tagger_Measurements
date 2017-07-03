@@ -1,0 +1,4 @@
+<!-- creole.xml for Measurement Tagger -->
+<CREOLE-DIRECTORY>
+	<REQUIRES GROUP="uk.ac.gate.plugins" ARTIFACT="jape-plus" VERSION="8.5-SNAPSHOT"/>
+</CREOLE-DIRECTORY>
