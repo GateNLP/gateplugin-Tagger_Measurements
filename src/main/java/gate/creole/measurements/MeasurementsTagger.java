@@ -8,6 +8,15 @@
  */
 package gate.creole.measurements;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.text.NumberFormat;
+import java.util.Set;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import gate.Annotation;
 import gate.AnnotationSet;
 import gate.Factory;
@@ -19,20 +28,13 @@ import gate.Utils;
 import gate.creole.AbstractLanguageAnalyser;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
+import gate.creole.ResourceReference;
 import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.CreoleResource;
 import gate.creole.metadata.Optional;
 import gate.creole.metadata.RunTime;
 import gate.creole.metadata.Sharable;
 import gate.event.ProgressListener;
-
-import java.io.IOException;
-import java.net.URL;
-import java.text.NumberFormat;
-import java.util.Set;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
 /**
  * A GATE PR which annotates and normalizes measurements. Each measurement is
@@ -53,9 +55,9 @@ public class MeasurementsTagger extends AbstractLanguageAnalyser implements
 
   private Logger logger = Logger.getLogger(this.getClass().getName());
 
-  private URL commonURL = null;
+  private ResourceReference commonURL = null;
 
-  private URL japeURL = null;
+  private ResourceReference japeURL = null;
 
   private String inputASName, outputASName;
 
@@ -63,7 +65,7 @@ public class MeasurementsTagger extends AbstractLanguageAnalyser implements
 
   private String encoding = "UTF-8";
 
-  private URL unitsURL = null;
+  private ResourceReference unitsURL = null;
 
   private MeasurementsParser parser = null;
 
@@ -149,32 +151,59 @@ public class MeasurementsTagger extends AbstractLanguageAnalyser implements
 
   private LanguageAnalyser jape = null;
 
-  public URL getCommonURL() {
+  public ResourceReference getCommonURL() {
     return commonURL;
   }
 
   @Optional
   @CreoleParameter(comment = "A file of common words that should not be treated as units unless they are part of a compound unit", defaultValue = "resources/common_words.txt")
-  public void setCommonURL(URL gazURL) {
+  public void setCommonURL(ResourceReference gazURL) {
     this.commonURL = gazURL;
   }
+  
+  @Deprecated
+  public void setCommonURL(URL gazURL) {
+    try {
+      this.setCommonURL(new ResourceReference(gazURL));
+    } catch (URISyntaxException e) {
+      throw new RuntimeException("Error converting URL to ResourceReference", e);
+    }
+  }
 
-  public URL getJapeURL() {
+  public ResourceReference getJapeURL() {
     return japeURL;
   }
 
   @CreoleParameter(comment = "The JAPE file that drives the tagging process", defaultValue = "resources/jape/main.jape")
-  public void setJapeURL(URL japeURL) {
+  public void setJapeURL(ResourceReference japeURL) {
     this.japeURL = japeURL;
   }
+  
+  @Deprecated
+  public void setJapeURL(URL japeURL) {
+    try {
+      this.setJapeURL(new ResourceReference(japeURL));
+    } catch (URISyntaxException e) {
+      throw new RuntimeException("Error converting URL to ResourceReference", e);
+    }
+  }
 
-  public URL getUnitsURL() {
+  public ResourceReference getUnitsURL() {
     return unitsURL;
   }
 
   @CreoleParameter(comment = "The units database file", defaultValue = "resources/units.dat")
-  public void setUnitsURL(URL unitsURL) {
+  public void setUnitsURL(ResourceReference unitsURL) {
     this.unitsURL = unitsURL;
+  }
+  
+  @Deprecated
+  public void setUnitsURL(URL unitsURL) {
+    try {
+      this.setUnitsURL(new ResourceReference(unitsURL));
+    } catch (URISyntaxException e) {
+      throw new RuntimeException("Error converting URL to ResourceReference", e);
+    }
   }
 
   public Set<String> getIgnoredAnnotations() {
@@ -221,7 +250,7 @@ public class MeasurementsTagger extends AbstractLanguageAnalyser implements
 
     try {
       // create the underlying parser
-      parser = new MeasurementsParser(encoding, locale, unitsURL, commonURL);
+      parser = new MeasurementsParser(encoding, locale, unitsURL.toURL(), commonURL.toURL());
     } catch(IOException e) {
       // if any problems occur at this point then we need to stop as there is
       // nothing we can do, we certainly can't parse anything!
