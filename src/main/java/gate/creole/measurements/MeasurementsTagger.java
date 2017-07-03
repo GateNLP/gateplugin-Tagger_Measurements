@@ -48,7 +48,7 @@ import gate.event.ProgressListener;
  *      GATE User Guide</a>
  * @author Mark A. Greenwood
  */
-@CreoleResource(name = "Measurement Tagger", comment = "A measurement tagger based upon GNU Units", icon = "measurements.png")
+@CreoleResource(name = "Measurement Tagger", comment = "A measurement tagger based upon GNU Units", icon = "Measurements")
 public class MeasurementsTagger extends AbstractLanguageAnalyser implements
                                                                 ProgressListener {
   private static final long serialVersionUID = -12362162759905176L;
