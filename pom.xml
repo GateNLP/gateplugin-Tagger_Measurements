@@ -17,7 +17,7 @@
 	<artifactId>tagger-measurements</artifactId>
 	<version>8.5-SNAPSHOT</version>
 	
-	<name>Tagger Measurements</name>
+	<name>Tagger: Measurements</name>
 	<description>Processing resources for annotating and normalising both Arabic and Roman numbers</description>
 
 	<licenses>
