@@ -181,7 +181,7 @@ public class MeasurementsParser {
     try {
       dimensions = new HashMap<String, Measurement>();
       for(Map.Entry<String, Unit> unit : units.entrySet()) {
-        if(unit.getKey().matches("[A-Z]{4,}")) {
+        if(unit.getKey().matches("[A-Z][A-Z_]{3,}")) {
           Measurement v = Measurement.parse(unit.getKey(), 0, this);
           v.completereduce();
           dimensions.put(unit.getKey().toLowerCase(), v);
