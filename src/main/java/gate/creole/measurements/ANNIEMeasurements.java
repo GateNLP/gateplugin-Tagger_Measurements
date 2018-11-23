@@ -16,4 +16,6 @@ import java.util.List;
 	@AutoInstanceParam(name="menu", value="Measurements")}))
 public class ANNIEMeasurements extends PackagedController {
 
+  private static final long serialVersionUID = -6652665094320723015L;
+
 }

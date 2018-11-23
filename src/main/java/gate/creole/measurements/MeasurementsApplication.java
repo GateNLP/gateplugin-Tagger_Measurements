@@ -13,4 +13,6 @@ import gate.creole.metadata.CreoleResource;
 	@AutoInstanceParam(name="menu", value="Measurements")}))
 public class MeasurementsApplication extends PackagedController {
 
+  private static final long serialVersionUID = 5492817568206095491L;
+
 }
