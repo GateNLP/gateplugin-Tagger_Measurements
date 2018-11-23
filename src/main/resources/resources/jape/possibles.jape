@@ -44,6 +44,7 @@ Rule:possible1
 		FeatureMap features = Factory.newFeatureMap();
 		features.put("number", number);
 		features.put("unit", doc.getContent().getContent(number.getEndNode().getOffset(), unit.lastNode().getOffset()).toString());
+		features.put("unitTokens", gate.Utils.inDocumentOrder(unit));
 		
 		inputAS.add(number.getStartNode().getOffset(),number.getEndNode().getOffset(),"PossibleMeasurement", features);
 	}

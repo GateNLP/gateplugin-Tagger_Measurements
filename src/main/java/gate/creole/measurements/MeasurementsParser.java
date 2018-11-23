@@ -16,7 +16,6 @@
 package gate.creole.measurements;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -25,8 +24,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import gate.Annotation;
+import gate.Document;
 
 /**
  * A measurement parser based upon a modified version of the <a
@@ -190,6 +193,33 @@ public class MeasurementsParser {
     } catch(Parser.Exception e) {
       e.printStackTrace();
     }
+  }
+  
+  public Measurement parse(double amount, Document doc, List<Annotation> tokens, String inputAS) {
+    return parse(amount, doc, tokens, inputAS, true);
+  }
+  
+  public Measurement parse(double amount, Document doc, List<Annotation> tokens, String inputAS, boolean knownOnly) {
+    
+    for (int i = tokens.size() -1 ; i >= 0 ; --i) {
+      // should we skip the last token if it's punctuation
+      
+      String text = gate.Utils.stringFor(doc, tokens.get(0).getStartNode().getOffset(), tokens.get(i).getEndNode().getOffset());
+      
+      //System.out.println("'"+text+"'");
+    
+      Measurement m = parse(amount, text, 0);
+      
+      if (m == null) continue;
+      
+      //System.out.println("\t"+m.getParsedText());
+      
+      if (!knownOnly || m.getDimension() != null) return m;
+      
+      if (m.getParsedText().indexOf(" ") == -1) return null;
+    }
+    
+    return null;
   }
 
   /**
@@ -478,11 +508,5 @@ public class MeasurementsParser {
     Unit u = Unit.find(name, this);
     if(u == null) return null;
     return u.name;
-  }
-  
-  public static void main(String args[]) throws MalformedURLException, IOException {
-    MeasurementsParser parser = new MeasurementsParser((new File("plugins/Tagger_Measurements/resources/units.dat")).toURI().toURL(), (new File("plugins/Tagger_Measurements/resources/common_words.txt")).toURI().toURL());
-    Measurement m = parser.parse(20, "mg p");   
-    System.out.println(m.getParsedText());
   }
 }

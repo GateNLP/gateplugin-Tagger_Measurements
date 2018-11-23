@@ -72,6 +72,8 @@ public class MeasurementsTagger extends AbstractLanguageAnalyser implements
   private Boolean failOnMissingInputAnnotations = Boolean.TRUE;
   
   private Boolean consumeNumberAnnotations = Boolean.TRUE;
+  
+  private Boolean ignoreDimensionlessUnits = Boolean.TRUE;
 
   private Set<String> ignore = null;
   
@@ -88,7 +90,6 @@ public class MeasurementsTagger extends AbstractLanguageAnalyser implements
   }
 
   @RunTime
-  @Optional
   @CreoleParameter(comment = "Throw an exception when there are none of the required input annotations (Token) are present in the input set", defaultValue = "true")
   public void setFailOnMissingInputAnnotations(Boolean fail) {
     failOnMissingInputAnnotations = fail;
@@ -99,7 +100,6 @@ public class MeasurementsTagger extends AbstractLanguageAnalyser implements
   }
   
   @RunTime
-  @Optional
   @CreoleParameter(comment = "If true then Number annotations representing a measurement value will be consumed", defaultValue = "true")
   public void setConsumeNumberAnnotations(Boolean consume) {
     consumeNumberAnnotations = consume;
@@ -107,6 +107,16 @@ public class MeasurementsTagger extends AbstractLanguageAnalyser implements
 
   public Boolean getConsumeNumberAnnotations() {
     return consumeNumberAnnotations;
+  }
+  
+  public Boolean getIgnoreDimensionlessUnits() {
+    return ignoreDimensionlessUnits;
+  }
+
+  @RunTime
+  @CreoleParameter(comment = "ignore units that don't have a dimension defined in units.dat", defaultValue = "false")
+  public void setIgnoreDimensionlessUnits(Boolean ignoreDimensionlessUnits) {
+    this.ignoreDimensionlessUnits = ignoreDimensionlessUnits;
   }
 
   public String getLocale() {
@@ -155,19 +165,9 @@ public class MeasurementsTagger extends AbstractLanguageAnalyser implements
     return commonURL;
   }
 
-  @Optional
   @CreoleParameter(comment = "A file of common words that should not be treated as units unless they are part of a compound unit", defaultValue = "resources/common_words.txt")
   public void setCommonURL(ResourceReference gazURL) {
     this.commonURL = gazURL;
-  }
-  
-  @Deprecated
-  public void setCommonURL(URL gazURL) {
-    try {
-      this.setCommonURL(new ResourceReference(gazURL));
-    } catch (URISyntaxException e) {
-      throw new RuntimeException("Error converting URL to ResourceReference", e);
-    }
   }
 
   public ResourceReference getJapeURL() {
@@ -177,15 +177,6 @@ public class MeasurementsTagger extends AbstractLanguageAnalyser implements
   @CreoleParameter(comment = "The JAPE file that drives the tagging process", defaultValue = "resources/jape/main.jape")
   public void setJapeURL(ResourceReference japeURL) {
     this.japeURL = japeURL;
-  }
-  
-  @Deprecated
-  public void setJapeURL(URL japeURL) {
-    try {
-      this.setJapeURL(new ResourceReference(japeURL));
-    } catch (URISyntaxException e) {
-      throw new RuntimeException("Error converting URL to ResourceReference", e);
-    }
   }
 
   public ResourceReference getUnitsURL() {
@@ -197,15 +188,6 @@ public class MeasurementsTagger extends AbstractLanguageAnalyser implements
     this.unitsURL = unitsURL;
   }
   
-  @Deprecated
-  public void setUnitsURL(URL unitsURL) {
-    try {
-      this.setUnitsURL(new ResourceReference(unitsURL));
-    } catch (URISyntaxException e) {
-      throw new RuntimeException("Error converting URL to ResourceReference", e);
-    }
-  }
-
   public Set<String> getIgnoredAnnotations() {
     return ignore;
   }
@@ -366,6 +348,7 @@ public class MeasurementsTagger extends AbstractLanguageAnalyser implements
     // through the ActionContext
     jape.getFeatures().put("measurementsParser", parser);
     jape.getFeatures().put("consumeNumberAnnotations", consumeNumberAnnotations);
+    jape.getFeatures().put("ignoreDimensionlessUnits", ignoreDimensionlessUnits);
     
     try {
       jape.setParameterValue("inputASName", inputASName);

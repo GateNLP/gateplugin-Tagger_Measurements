@@ -57,12 +57,13 @@ Priority: 500
     
     MeasurementsParser parser = (MeasurementsParser)getActionContext().getPRFeatures().get("measurementsParser");
     boolean consumeNumberAnnotations = (Boolean)getActionContext().getPRFeatures().get("consumeNumberAnnotations");
+    boolean ignoreDimensionlessUnits = (Boolean)getActionContext().getPRFeatures().get("ignoreDimensionlessUnits");
     
-    Measurement startValue = parser.parse(startNumber,(String)possible.getFeatures().get("unit"));
+    Measurement startValue = parser.parse(startNumber,doc,(List<Annotation>)possible.getFeatures().get("unitTokens"),inputAS.getName(), ignoreDimensionlessUnits);
     
     if (startValue == null) return;
     
-    Measurement endValue = parser.parse(endNumber,(String)possible.getFeatures().get("unit"));
+    Measurement endValue = parser.parse(endNumber,doc,(List<Annotation>)possible.getFeatures().get("unitTokens"),inputAS.getName(), ignoreDimensionlessUnits);
     
     if (endValue == null) return;
     
@@ -147,12 +148,13 @@ Rule: Measurement
 
   try {
     
-    String content = (String)possible.getFeatures().get("unit");
+    List<Annotation> unitTokens = (List<Annotation>)possible.getFeatures().get("unitTokens");
 
 	MeasurementsParser parser = (MeasurementsParser)getActionContext().getPRFeatures().get("measurementsParser");
 	boolean consumeNumberAnnotations = (Boolean)getActionContext().getPRFeatures().get("consumeNumberAnnotations");
+	boolean ignoreDimensionlessUnits = (Boolean)getActionContext().getPRFeatures().get("ignoreDimensionlessUnits");
 
-    Measurement value = parser.parse((Double)number.getFeatures().get("value"),content,0);
+    Measurement value = parser.parse((Double)number.getFeatures().get("value"),doc, unitTokens, inputAS.getName(), ignoreDimensionlessUnits);
 
     if (value == null) return;
 
@@ -168,7 +170,7 @@ Rule: Measurement
     String dimension = value.getDimension();
     if (dimension != null) features.put("dimension",dimension);
 
-    outputAS.add(number.getStartNode().getOffset(),number.getEndNode().getOffset()+value.getParsedText().length(),"Measurement", features);
+    outputAS.add(number.getStartNode().getOffset(),unitTokens.get(0).getStartNode().getOffset()+value.getParsedText().length(),"Measurement", features);
     
     if (consumeNumberAnnotations) inputAS.remove(number);
   }
