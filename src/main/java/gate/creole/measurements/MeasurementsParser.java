@@ -157,9 +157,8 @@ public class MeasurementsParser {
     // load in any common words that have been provided
     commonWords = new HashSet<String>();
     if(common != null) {
-      BufferedReader in = null;
-      try {
-        in = open(common, encoding);
+      
+      try (BufferedReader in = open(common, encoding)){
         String word = in.readLine();
         while(word != null) {
           commonWords.add(word.trim());
@@ -167,14 +166,6 @@ public class MeasurementsParser {
         }
       } catch(IOException e) {
         throw new RuntimeException(e);
-      } finally {
-        if(in != null) {
-          try {
-            in.close();
-          } catch(IOException ioe) {
-            // ignore it
-          }
-        }
       }
     }
 

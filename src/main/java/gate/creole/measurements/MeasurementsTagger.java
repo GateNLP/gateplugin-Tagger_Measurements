@@ -9,8 +9,6 @@
 package gate.creole.measurements;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.text.NumberFormat;
 import java.util.Set;
 
@@ -35,6 +33,7 @@ import gate.creole.metadata.Optional;
 import gate.creole.metadata.RunTime;
 import gate.creole.metadata.Sharable;
 import gate.event.ProgressListener;
+import gate.util.InvalidOffsetException;
 
 /**
  * A GATE PR which annotates and normalizes measurements. Each measurement is
@@ -335,7 +334,7 @@ public class MeasurementsTagger extends AbstractLanguageAnalyser implements
             // embedded JAPE to skip over sections of a document
             inputAS.add(a.getStartNode().getOffset(), a.getEndNode()
                     .getOffset(), "CannotBeAMeasurement", empty);
-          } catch(Exception e) {
+          } catch(InvalidOffsetException e) {
             // this should be impossible as the only offsets we are using are
             // coming straight from the document
           }
