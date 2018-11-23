@@ -8,14 +8,14 @@
 		<groupId>uk.ac.gate</groupId>
 		<artifactId>gate-plugin-base</artifactId>
 		<!-- this should be the version of GATE you wish to build against -->
-		<version>8.5-SNAPSHOT</version>
-		<relativePath>../../Plugin_Base/pom.xml</relativePath>
+		<version>8.5</version>
+		<relativePath></relativePath>
 	</parent>	
 	
 	<!-- this is the description of this plugin -->
 	<groupId>uk.ac.gate.plugins</groupId>
 	<artifactId>tagger-measurements</artifactId>
-	<version>8.5-SNAPSHOT</version>
+	<version>8.6-SNAPSHOT</version>
 	
 	<name>Tagger: Measurements</name>
 	<description>Processing resources for annotating and normalising both Arabic and Roman numbers</description>
@@ -51,32 +51,6 @@
 	<dependencies>
 		<!-- add any other libraries your plugin depends on. Any other GATE plugins 
 			you depend on at compile time should use the provided scope -->
-
-		<!-- plugins from here down are not need to compile but are needed by the
-			example apps so we list them as provided dependencies to ensure they
-			are built before this plugin when building the full set of standard
-			GATE plugins -->
-<!--		<dependency>
-			<groupId>uk.ac.gate.plugins</groupId>
-			<artifactId>jape-plus</artifactId>
-			<version>8.5-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>uk.ac.gate.plugins</groupId>
-			<artifactId>tagger-numbers</artifactId>
-			<version>8.5-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-
-		
-		<dependency>
-			<groupId>uk.ac.gate.plugins</groupId>
-			<artifactId>annie</artifactId>
-			<version>8.5-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>-->
 	</dependencies>
 
 </project>
