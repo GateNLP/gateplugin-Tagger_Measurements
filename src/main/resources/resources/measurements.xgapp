@@ -1,25 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <gate.util.persistence.GateApplication>
   <urlList class="gate.util.persistence.CollectionPersistence">
     <localList>
       <gate.creole.Plugin-Maven>
         <group>uk.ac.gate.plugins</group>
         <artifact>annie</artifact>
-        <version>8.6-SNAPSHOT</version>
+        <version>8.6</version>
       </gate.creole.Plugin-Maven>
       <gate.creole.Plugin-Maven>
         <group>uk.ac.gate.plugins</group>
         <artifact>jape-plus</artifact>
-        <version>8.5-SNAPSHOT</version>
+        <version>8.6</version>
       </gate.creole.Plugin-Maven>
       <gate.creole.Plugin-Maven>
         <group>uk.ac.gate.plugins</group>
         <artifact>tagger-numbers</artifact>
-        <version>8.5-SNAPSHOT</version>
+        <version>8.6</version>
       </gate.creole.Plugin-Maven>
       <gate.creole.Plugin-Maven>
         <group>uk.ac.gate.plugins</group>
         <artifact>tagger-measurements</artifact>
-        <version>8.6-SNAPSHOT</version>
+        <version>8.6</version>
       </gate.creole.Plugin-Maven>
     </localList>
     <collectionType>java.util.ArrayList</collectionType>
@@ -30,49 +31,49 @@
         <gate.util.persistence.PRPersistence>
           <runtimeParams class="gate.util.persistence.MapPersistence">
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
+            <localMap />
           </runtimeParams>
           <resourceType>gate.creole.annotdelete.AnnotationDeletePR</resourceType>
           <resourceName>Document Reset PR</resourceName>
           <initParams class="gate.util.persistence.MapPersistence">
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
+            <localMap />
           </initParams>
           <features class="gate.util.persistence.MapPersistence">
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
+            <localMap />
           </features>
         </gate.util.persistence.PRPersistence>
         <gate.util.persistence.LanguageAnalyserPersistence>
           <runtimeParams class="gate.util.persistence.MapPersistence">
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
+            <localMap />
           </runtimeParams>
           <resourceType>gate.creole.tokeniser.DefaultTokeniser</resourceType>
           <resourceName>ANNIE English Tokeniser</resourceName>
           <initParams class="gate.util.persistence.MapPersistence">
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
+            <localMap />
           </initParams>
           <features class="gate.util.persistence.MapPersistence">
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
+            <localMap />
           </features>
         </gate.util.persistence.LanguageAnalyserPersistence>
         <gate.util.persistence.LanguageAnalyserPersistence>
           <runtimeParams class="gate.util.persistence.MapPersistence">
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
+            <localMap />
           </runtimeParams>
           <resourceType>gate.creole.splitter.SentenceSplitter</resourceType>
           <resourceName>ANNIE Sentence Splitter</resourceName>
           <initParams class="gate.util.persistence.MapPersistence">
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
+            <localMap />
           </initParams>
           <features class="gate.util.persistence.MapPersistence">
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
+            <localMap />
           </features>
         </gate.util.persistence.LanguageAnalyserPersistence>
         <gate.util.persistence.LanguageAnalyserPersistence>
@@ -89,27 +90,27 @@
           <resourceName>Numbers Tagger</resourceName>
           <initParams class="gate.util.persistence.MapPersistence">
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
+            <localMap />
           </initParams>
           <features class="gate.util.persistence.MapPersistence">
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
+            <localMap />
           </features>
         </gate.util.persistence.LanguageAnalyserPersistence>
         <gate.util.persistence.LanguageAnalyserPersistence>
           <runtimeParams class="gate.util.persistence.MapPersistence">
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
+            <localMap />
           </runtimeParams>
           <resourceType>gate.creole.measurements.MeasurementsTagger</resourceType>
           <resourceName>Measurements Tagger</resourceName>
           <initParams class="gate.util.persistence.MapPersistence">
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
+            <localMap />
           </initParams>
           <features class="gate.util.persistence.MapPersistence">
             <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-            <localMap/>
+            <localMap />
           </features>
         </gate.util.persistence.LanguageAnalyserPersistence>
       </localList>
@@ -119,7 +120,7 @@
     <resourceName>Measurements</resourceName>
     <initParams class="gate.util.persistence.MapPersistence">
       <mapType>gate.util.SimpleFeatureMapImpl</mapType>
-      <localMap/>
+      <localMap />
     </initParams>
     <features class="gate.util.persistence.MapPersistence">
       <mapType>gate.util.SimpleFeatureMapImpl</mapType>
